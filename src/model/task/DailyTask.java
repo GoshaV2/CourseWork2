@@ -4,7 +4,7 @@ import model.task.type.TypePeriodTask;
 
 import java.time.LocalDateTime;
 
-public class DailyTask extends Task implements RepetitiveTask {
+public class DailyTask extends Task{
 
     public DailyTask() {
         super(TypePeriodTask.DAILY);

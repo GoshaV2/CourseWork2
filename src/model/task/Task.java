@@ -5,7 +5,7 @@ import model.task.type.TypePeriodTask;
 
 import java.time.LocalDateTime;
 
-public abstract class Task {
+public abstract class Task implements RepetitiveTask{
     private static int globalId;
     private int id;
     private String title;

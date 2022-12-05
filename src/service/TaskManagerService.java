@@ -9,6 +9,7 @@ import model.task.type.TypeOfTask;
 import model.task.type.TypePeriodTask;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TaskManagerService {
@@ -97,21 +98,22 @@ public class TaskManagerService {
     }
 
     private boolean checkDateForTaskCompletion(Task task, LocalDateTime dateTime) {
-        if (dateTime.toLocalDate().isAfter(task.getDate().toLocalDate()) && task instanceof RepetitiveTask) {
+        if (dateTime.toLocalDate().isAfter(task.getDate().toLocalDate())) {
             return dateTime.toLocalDate().
-                    isEqual(((RepetitiveTask) task).getNextDateOfTaskAtTheDate(dateTime).toLocalDate());
+                    isEqual(task.getNextDateOfTaskAtTheDate(dateTime).toLocalDate());
         }
         return dateTime.toLocalDate().isEqual(task.getDate().toLocalDate());
     }
 
     private LocalDateTime parseDateTime(String dateTime) {
-        String date[] = dateTime.split(" ")[0].split("-");
+        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        /*String date[] = dateTime.split(" ")[0].split("-");
         String time[] = dateTime.split(" ")[1].split(":");
         int year = Integer.parseInt(date[2]);
         int month = Integer.parseInt(date[1]);
         int day = Integer.parseInt(date[0]);
         int hour = Integer.parseInt(time[0]);
-        int minute = Integer.parseInt(time[1]);
-        return LocalDateTime.of(year, month, day, hour, minute);
+        int minute = Integer.parseInt(time[1]);*/
+        return LocalDateTime.parse(dateTime,dateTimeFormatter);
     }
 }
